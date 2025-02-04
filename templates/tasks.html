@@ -1,0 +1,92 @@
+<!-- Updated tasks.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard">
+    <header class="dashboard-header">
+        <h1>Mis Tareas</h1>
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="openModal('taskModal')">
+                <i class="fas fa-plus"></i> Nueva Tarea
+            </button>
+        </div>
+    </header>
+
+    <div class="progress-section mb-4">
+        <h4>Progreso General</h4>
+        <div id="progressContainer" class="progress">
+            <div id="progressBar" class="progress-bar bg-success" role="progressbar" 
+                 style="width: {{ progress }}%;" 
+                 aria-valuenow="{{ progress }}" 
+                 aria-valuemin="0" 
+                 aria-valuemax="100">
+                {{ progress|round }}%
+            </div>
+        </div>
+    </div>
+
+    <div class="tasks-container">
+        <div class="tasks-grid">
+            <!-- Pending Tasks -->
+            <div class="task-column pending">
+                <h2>Pendientes</h2>
+                <div id="pendingTasks">
+                    {% for task in tasks if not task.completed %}
+                    <div class="task-card" data-task-id="{{ task.id }}">
+                        <div class="task-content">
+                            <h5 class="task-title">{{ task.title }}</h5>
+                            <p class="task-description">{{ task.description }}</p>
+                            <div class="task-metadata">
+                                <span class="priority-badge bg-{{ task.priority }}">
+                                    {{ task.priority|title }}
+                                </span>
+                                {% if task.due_date %}
+                                <span class="due-date">Vence: {{ task.due_date.strftime('%Y-%m-%d') }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn complete-btn" onclick="toggleTask({{ task.id }})">
+                                <i class="fas fa-check"></i>
+                            </button>
+                            <button class="btn edit-btn" onclick="editTask({{ task.id }})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn delete-btn" onclick="deleteTask({{ task.id }})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Completed Tasks -->
+            <div class="task-column completed">
+                <h2>Completadas</h2>
+                <div id="completedTasks">
+                    {% for task in tasks if task.completed %}
+                    <div class="task-card completed" data-task-id="{{ task.id }}">
+                        <div class="task-content">
+                            <h5 class="task-title"><s>{{ task.title }}</s></h5>
+                            <p class="task-description">{{ task.description }}</p>
+                            <div class="task-metadata">
+                                <span class="badge bg-secondary">Completada</span>
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn undo-btn" onclick="toggleTask({{ task.id }})">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                            <button class="btn delete-btn" onclick="deleteTask({{ task.id }})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="calendar-container">
+    <header class="calendar-header">
+        <h1>Calendario de Tareas</h1>
+    </header>
+    <div id="calendar"></div>
+</div>
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'es',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: '/api/calendar/events', // Asegúrate de tener esta ruta en tu backend
+        eventClick: function(info) {
+            const event = info.event;
+            showTaskModal(event);
+        }
+    });
+    calendar.render();
+});
+
+function showTaskModal(event) {
+    const modalContent = `
+        <div class="modal" id="taskDetailModal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>${event.title}</h2>
+                <p>${event.extendedProps.description || 'Sin descripción'}</p>
+                <div class="task-metadata">
+                    <span class="priority-badge ${event.extendedProps.priority}">${event.extendedProps.priority}</span>
+                    <span class="due-date">Vence: ${new Date(event.start).toLocaleDateString()}</span>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalContent);
+    
+    const modal = document.getElementById('taskDetailModal');
+    const closeBtn = modal.querySelector('.close');
+    
+    modal.style.display = 'block';
+    closeBtn.onclick = () => {
+        modal.remove();
+    };
+}
+</script>
+{% endblock %}
+{% endblock %}

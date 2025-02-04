@@ -1,0 +1,31 @@
+<!-- index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="welcome-container">
+    <header class="dashboard-header">
+        <h1>Bienvenido a TaskManager</h1>
+        <p>Gestione sus tareas y manténgase organizado.</p>
+    </header>
+
+    <div class="summary-container">
+        <div class="progress-section">
+            <h2>{{ progress }}%</h2>
+            <p>Progreso completado</p>
+            <div id="progressContainer">
+                <div id="progressBar" style="width: {{ progress }}%;"></div>
+                <span id="progressText">{{ progress }}% Completado</span>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="{{ url_for('tasks_view') }}" class="btn btn-primary">
+                <i class="fas fa-tasks"></i> Ir a Tareas
+            </a>
+            <a href="{{ url_for('calendar') }}" class="btn btn-secondary">
+                <i class="fas fa-calendar"></i> Ir al Calendario
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

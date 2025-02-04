@@ -1,0 +1,20 @@
+import TaskManager from './TaskManager.js';
+import Calendar from './components/Calendar.js';
+import NotificationManager from './utils/NotificationManager.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+    const taskManager = new TaskManager();
+    const calendar = new Calendar('calendar');
+
+    // Initialize components
+    calendar.init();
+
+    // Set up event listeners
+    // ...
+
+    // Load initial data
+    // ...
+
+    // Other initialization code
+    // ...
+});

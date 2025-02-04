@@ -1,0 +1,46 @@
+@startuml
+
+class User {
+    +id: int
+    +username: string
+    +email: string
+}
+
+class Task {
+    +id: int
+    +title: string
+    +description: string
+    +dueDate: Date
+    +completed: boolean
+    +priority: string
+    +category: string
+    +userId: int
+}
+
+class Progress {
+    +completedTasks: int
+    +totalTasks: int
+    +getProgress(): float
+}
+
+class NotificationManager {
+    +notify(message: string): void
+}
+
+class Calendar {
+    +element: HTMLElement
+    +render(events: List<Task>): void
+}
+
+class TaskManager {
+    +tasks: List<Task>
+    +addTask(task: Task): void
+    +getTasks(): List<Task>
+}
+
+User "1" -- "*" Task : owns
+TaskManager "1" -- "*" Task : manages
+Calendar "1" -- "*" Task : displays
+NotificationManager ..> Task : observes
+
+@enduml

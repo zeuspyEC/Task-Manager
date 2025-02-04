@@ -1,0 +1,48 @@
+<!-- register.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <div class="auth-header">
+            <h2>Registro</h2>
+            <p>Crea tu cuenta</p>
+        </div>
+        <form method="POST" action="{{ url_for('register') }}" class="auth-form">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="username">Usuario</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    {{ form.username(class="form-control") }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-envelope"></i>
+                    {{ form.email(class="form-control") }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    {{ form.password(class="form-control") }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password2">Confirmar Contraseña</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    {{ form.password2(class="form-control") }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+        </form>
+        <div class="auth-footer">
+            <p>¿Ya tienes una cuenta? <a href="{{ url_for('login') }}">Inicia Sesión</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

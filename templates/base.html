@@ -1,0 +1,95 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Gestión de Tareas{% endblock %}</title>
+    <!-- Estilos principales -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fullcalendar.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="dark-theme">
+    <!-- Scripts principales -->
+    <script src="{{ url_for('static', filename='js/fullcalendar.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <div class="app-container">
+        {% if current_user.is_authenticated %}
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
+                <h2>TaskManager</h2>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="{{ url_for('tasks_view') }}" class="nav-link {% if request.endpoint == 'tasks_view' %}active{% endif %}">
+                        <i class="fas fa-tasks"></i> Tareas
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('calendar') }}" class="nav-link {% if request.endpoint == 'calendar' %}active{% endif %}">
+                        <i class="fas fa-calendar"></i> Calendario
+                    </a>
+                </li>
+            </ul>
+            <div class="user-section">
+                <span class="user-name">{{ current_user.username }}</span>
+                <a href="{{ url_for('logout') }}" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </a>
+            </div>
+        </nav>
+        {% endif %}
+
+        <main class="main-content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                            <button class="close-btn">×</button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Nueva Tarea</h2>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="title">Título</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción</label>
+                    <textarea id="description" name="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="dueDate">Fecha de Vencimiento</label>
+                    <input type="datetime-local" id="dueDate" name="dueDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Prioridad</label>
+                    <select id="priority" name="priority">
+                        <option value="low">Baja</option>
+                        <option value="medium">Media</option>
+                        <option value="high">Alta</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

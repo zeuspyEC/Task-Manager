@@ -1,0 +1,484 @@
+/* styles.css */
+:root {
+    /* Colores principales */
+    --primary-color: #6C63FF;
+    --primary-light: #8B85FF;
+    --primary-dark: #4A43CC;
+    --secondary-color: #4CAF50;
+    --danger-color: #FF4B4B;
+    --warning-color: #FFB800;
+    
+    /* Tema claro */
+    --text-color: #2C3E50;
+    --bg-color: #F5F7FA;
+    --card-bg: #FFFFFF;
+    --border-color: #E1E4E8;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    
+    /* Tema oscuro */
+    --dark-bg: #1A1C1E;
+    --dark-card-bg: #2D2F31;
+    --dark-text: #FFFFFF;
+    --dark-border: #3F4143;
+    
+    /* Animaciones */
+    --transition-speed: 0.3s;
+}
+
+/* Reset y estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color var(--transition-speed);
+}
+
+/* Tema oscuro */
+body.dark-theme {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+body.dark-theme .card,
+body.dark-theme .sidebar,
+body.dark-theme .modal-content {
+    background-color: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+/* Layout */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    background-color: var(--card-bg);
+    border-right: 1px solid var(--border-color);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: all var(--transition-speed);
+    z-index: 1000;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    transition: all var(--transition-speed);
+}
+
+.nav-link:hover {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+.nav-link.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.nav-link i {
+    margin-right: 1rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+/* Nuevos estilos para las tareas y botones */
+.task-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-2px);
+}
+
+.task-content {
+    flex: 1;
+    padding-right: 1rem;
+}
+
+.task-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.complete-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e8f5e9;
+    border: none;
+    color: #4caf50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.complete-btn:hover {
+    background: #4caf50;
+    color: white;
+}
+
+.edit-btn, .delete-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.edit-btn {
+    background: #e3f2fd;
+    color: #2196f3;
+}
+
+.edit-btn:hover {
+    background: #2196f3;
+    color: white;
+}
+
+.delete-btn {
+    background: #ffebee;
+    color: #f44336;
+}
+
+.delete-btn:hover {
+    background: #f44336;
+    color: white;
+}
+
+/* Estilos para el progreso circular */
+.progress-container {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.progress-circle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--primary-color) calc(var(--progress) * 1%),
+        #eee calc(var(--progress) * 1%) 100%
+    );
+}
+
+.progress-circle-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.progress-percentage {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.progress-label {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Calendar styles */
+.calendar-container {
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 1rem;
+    height: calc(100vh - 150px);
+}
+
+.fc {
+    height: 100%;
+    background-color: var(--card-bg);
+}
+
+.fc-event {
+    cursor: pointer;
+    padding: 4px 8px;
+    margin: 2px 0;
+    border-radius: 4px;
+}
+
+.fc-event.priority-high {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.fc-event.priority-medium {
+    background-color: var(--warning-color);
+    border-color: var(--warning-color);
+}
+
+.fc-event.priority-low {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.fc-event.completed {
+    background-color: #808080;
+    border-color: #808080;
+    text-decoration: line-through;
+}
+
+/* Formularios */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color var(--transition-speed);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Botones */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-icon {
+    padding: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color var(--transition-speed);
+}
+
+.btn-icon:hover {
+    color: var(--primary-color);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background-color: var(--card-bg);
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+/* Autenticación */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+}
+
+.auth-box {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-header h2 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-color);
+}
+
+.input-with-icon input {
+    padding-left: 3rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+        padding: 1rem;
+    }
+
+    .sidebar .logo-text,
+    .sidebar .nav-link span {
+        display: none;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .task-card {
+        padding: 1rem;
+    }
+}
+
+/* Notifications container */
+.notifications-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notification {
+    padding: 12px 24px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    animation: slideIn 0.3s ease-out;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.notification.success {
+    background-color: var(--secondary-color);
+}
+
+.notification.error {
+    background-color: var(--danger-color);
+}
+
+.notification.warning {
+    background-color: var(--warning-color);
+}
+
+.notification.info {
+    background-color: var(--primary-color);
+}
+
+/* Animaciones */
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.task-card {
+    animation: slideIn 0.3s ease-out;
+}
