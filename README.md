@@ -15,7 +15,7 @@ Task Manager es una aplicación web para la gestión de tareas personales. Permi
 
 ```csharp
 task_manager/
-│   app.py                 # Aplicación principal en Flask
+│   app.py                  # Aplicación principal en Flask
 │   requirements.txt        # Dependencias del proyecto
 │   TaskManager.puml        # Diagramas UML del sistema
 │   tasks.db                # Base de datos SQLite
@@ -68,7 +68,7 @@ task_manager/
 Clona el repositorio y navega dentro del proyecto:
 
 ```sh
-git clone https://github.com/tu-usuario/task-manager.git
+git clone https://github.com/zeuspyEC/task-manager.git
 cd task-manager
 ```
 
