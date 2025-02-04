@@ -1,0 +1,33 @@
+
+@startuml DiagramaClases
+class Usuario {
+  -id: int
+  -nombre: String
+  -correo: String
+  -contraseña: String
+  +registrar()
+  +iniciarSesion()
+}
+
+class Tarea {
+  -id: int
+  -titulo: String
+  -descripcion: String
+  -categoria: String
+  -prioridad: String
+  -fechaVencimiento: Date
+  +crear()
+  +editar()
+  +eliminar()
+  +marcarCompletada()
+}
+
+class Progreso {
+  -tareasTotales: int
+  -tareasCompletadas: int
+  +calcularProgreso()
+}
+
+Usuario "1" --> "*" Tarea : "crea"
+Usuario "1" --> "1" Progreso : "visualiza"
+@enduml

@@ -1,0 +1,11 @@
+
+@startuml SecuenciaCrearTarea
+actor Usuario
+participant Sistema
+participant BaseDeDatos
+
+Usuario -> Sistema: Crear Tarea
+Sistema -> BaseDeDatos: Guardar Tarea
+BaseDeDatos --> Sistema: Confirmar Guardado
+Sistema --> Usuario: Confirmar Creación
+@enduml

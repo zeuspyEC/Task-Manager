@@ -1,0 +1,11 @@
+
+@startuml CasosDeUso
+actor Usuario
+
+rectangle Sistema {
+  Usuario --> (Registro e Ingreso al Sistema)
+  Usuario --> (Gestión de Tareas)
+  Usuario --> (Clasificación de Tareas)
+  Usuario --> (Visualización de Progreso)
+}
+@enduml
